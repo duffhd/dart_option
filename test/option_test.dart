@@ -29,7 +29,7 @@ void main() {
     test('Execute the Some branch of unwrap', () {
       bool executedSomeBranch = false;
 
-      testOption(5).unwrap((some) {
+      testOption(5).match((some) {
         executedSomeBranch = true;
       }, () {
         executedSomeBranch = false;
@@ -41,13 +41,25 @@ void main() {
     test('Execute the None branch of unwrap', () {
       bool executedNoneBranch = false;
 
-      testOption(2).unwrap((some) {
+      testOption(2).match((some) {
         executedNoneBranch = false;
       }, () {
         executedNoneBranch = true;
       });
 
       expect(executedNoneBranch, true);
+    });
+  });
+
+  group('isNone getter tests', () {
+    test('isNone should be false on a Some instance', () {
+      bool isNone = testOption(5).isNone;
+      expect(isNone, false);
+    });
+
+    test('isNone should be true on a None instance', () {
+      bool isNone = testOption(2).isNone;
+      expect(isNone, true);
     });
   });
 }

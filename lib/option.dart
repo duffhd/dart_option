@@ -15,7 +15,7 @@ abstract class Option<T> {
   /// functionThatReturnsOption()
   ///   .unwrap((some) {/* Some branch with value T*/}, () {/* None branch */})
   /// ```
-  void unwrap(Function(T) some, Function() none);
+  void match(Function(T) some, Function() none);
 
   /// Indicates if the Option is as Some or None.
   bool get isNone;
@@ -29,7 +29,7 @@ class Some<T> implements Option<T> {
   bool get isNone => false;
 
   @override
-  void unwrap(Function(T value) some, Function() none) {
+  void match(Function(T value) some, Function() none) {
     some(value);
   }
 }
@@ -41,7 +41,7 @@ class None<T> implements Option<T> {
   bool get isNone => true;
 
   @override
-  void unwrap(Function(T value) some, Function() none) {
+  void match(Function(T value) some, Function() none) {
     none();
   }
 }
