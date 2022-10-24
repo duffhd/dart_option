@@ -13,7 +13,7 @@ abstract class Option<T> {
   /// Example usage:
   /// ```dart
   /// functionThatReturnsOption()
-  ///   .unwrap((some) {/* Some branch with value T*/}, () {/* None branch */})
+  ///   .match((some) {/* Some branch with value T*/}, () {/* None branch */})
   /// ```
   void match(Function(T) some, Function() none);
 
@@ -29,7 +29,7 @@ class Some<T> implements Option<T> {
   bool get isNone => false;
 
   @override
-  void match(Function(T value) some, Function() none) {
+  void match(Function(T some) some, Function() none) {
     some(value);
   }
 }
@@ -41,7 +41,7 @@ class None<T> implements Option<T> {
   bool get isNone => true;
 
   @override
-  void match(Function(T value) some, Function() none) {
+  void match(Function(T some) some, Function() none) {
     none();
   }
 }
